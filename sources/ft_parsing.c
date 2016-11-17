@@ -6,12 +6,25 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 13:41:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 13:47:38 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell.h"
+
+static void		ft_free_tab(char **tab)
+{
+	size_t		n;
+
+	n = 0;
+	if (tab)
+	{
+		while (tab[n])
+			free(tab[n++]);
+		free(tab);
+	}
+}
 
 void			ft_free_cmds(t_cmd **cmds)
 {
@@ -21,7 +34,11 @@ void			ft_free_cmds(t_cmd **cmds)
 	if (cmds)
 	{
 		while (cmds[n])
+		{
+			free(cmds[n]->name);
+			ft_free_tab(cmds[n]->argv);
 			free(cmds[n++]);
+		}
 		free(cmds);
 	}
 }
