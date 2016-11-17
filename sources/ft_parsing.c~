@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 13:41:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 12:32:09 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		**ft_tabcpy(char **tab)
 	int			n;
 
 	n = -1;
-	if ((dst = malloc(sizeof(char *) * (ft_tablen(tab) + 1))) == NULL)
+	if ((dst = malloc(sizeof(char *) * ft_tablen(tab) + 1)) == NULL)
 		return (NULL);
 	while (tab[++n])
 		dst[n] = ft_strdup(tab[n]);
