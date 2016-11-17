@@ -6,42 +6,12 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 13:47:38 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 20:54:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell.h"
-
-static void		ft_free_tab(char **tab)
-{
-	size_t		n;
-
-	n = 0;
-	if (tab)
-	{
-		while (tab[n])
-			free(tab[n++]);
-		free(tab);
-	}
-}
-
-void			ft_free_cmds(t_cmd **cmds)
-{
-	int			n;
-
-	n = 0;
-	if (cmds)
-	{
-		while (cmds[n])
-		{
-			free(cmds[n]->name);
-			ft_free_tab(cmds[n]->argv);
-			free(cmds[n++]);
-		}
-		free(cmds);
-	}
-}
 
 static char		**ft_tabcpy(char **tab)
 {
@@ -57,33 +27,61 @@ static char		**ft_tabcpy(char **tab)
 	return (dst);
 }
 
+static void		ft_parse_parenthesis(char **str, char c, char r)
+{
+	size_t		n;
+	int			open;
+
+	n = 0;
+	open = FALSE;
+	while ((*str)[n])
+	{
+		if ((*str)[n] == '\"')
+		{
+			(*str)[n++] = ' ';
+			open = (open == TRUE) ? FALSE : TRUE;
+		}
+		if (open == TRUE && (*str)[n] == c)
+			(*str)[n] = r;
+		n = n + 1;
+	}
+}
+
+static void		ft_parenthesis_undo(char ***tab)
+{
+	size_t		n;
+
+	n = 0;
+	while ((*tab)[n])
+		ft_parse_parenthesis(&((*tab)[n++]), '\a', ' ');
+}
+
 static t_cmd	*ft_parsecmd(char *str)
 {
 	t_cmd		*cmd;
 	char		**tab;
 
+	ft_parse_parenthesis(&str, ' ', '\a');
 	if ((tab = ft_strsplit(str, ' ')) == NULL)
 		return (NULL);
 	if ((cmd = malloc(sizeof(t_cmd))) == NULL)
 	{
-		free(tab);
+		ft_free_tab(tab);
 		return (NULL);
 	}
 	cmd->name = NULL;
 	cmd->argv = NULL;
+	ft_parenthesis_undo(&tab);
 	if (!tab[0])
 		return (cmd);
 	if ((cmd->name = ft_strdup(tab[0])) == NULL)
 	{
-		free(tab);
+		ft_free_tab(tab);
 		free(cmd);
 		return (NULL);
 	}
-	if (tab[1] != NULL)
-		cmd->argv = ft_tabcpy(tab);
-	else
-		cmd->argv = NULL;
-	free(tab);
+	cmd->argv = ft_tabcpy(tab);
+	ft_free_tab(tab);
 	return (cmd);
 }
 
@@ -109,6 +107,6 @@ t_cmd			**ft_parsing(char *str)
 			ft_free_cmds(cmds);
 			return (NULL);
 		}
-	free(tab);
+	ft_free_tab(tab);
 	return (cmds);
 }

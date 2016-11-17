@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 09:19:14 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 19:57:27 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/17 21:13:50 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/17 21:37:08 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "libft.h"
+#include "shell.h"
+#include "error.h"
 
-# define ERROR_READ "Erreur de lecture."
-# define ERROR_ALLOC "Erreur d'allocation memoire."
-# define ERROR_FORK "Erreur lors de la création d'un nouveau processus."
-# define ERROR_NOTFOUND "Executable introuvable."
-# define ERROR_PERMS "Vous n'avez pas les droits suffisant"
-# define ERROR_EXEC "Erreur lors de l'execution"
+void		ft_echo(char **argv)
+{
+	size_t	n;
 
-#endif
+	n = 1;
+	while (argv[n])
+	{
+		ft_putstr(argv[n++]);
+		if (argv[n])
+			ft_putstr(" ");
+	}
+}

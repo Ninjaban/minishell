@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 11:40:23 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 19:58:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			ft_shell(char **env, int exit)
 	{
 		ft_putstr(PROMPT);
 		cmds = NULL;
+		str = NULL;
 		if (get_next_line(0, &str) == -1)
 			ft_error(ERROR_READ);
 		else if ((cmds = ft_parsing(str)) == NULL)
@@ -32,11 +33,13 @@ int			ft_shell(char **env, int exit)
 			ft_error(tmp);
 		else if ((tmp = ft_exec(cmds, env)) != NULL)
 		{
-			if (tmp != EXIT)
+			if (ft_strcmp(tmp, EXIT) != 0)
 				ft_error(tmp);
 			else
 				exit = TRUE;
 		}
+		if (str)
+			free(str);
 		if (cmds)
 			ft_free_cmds(cmds);
 	}
