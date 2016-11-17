@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 12:06:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 13:54:22 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+
+# include <stdio.h>
+# include <errno.h>
 
 typedef struct	s_cmd
 {

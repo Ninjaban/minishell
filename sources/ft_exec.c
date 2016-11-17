@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 10:54:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 13:16:09 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/17 14:06:33 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		*ft_exec(t_cmd **cmds, char **env)
 {
 	size_t	n;
 	int		status;
+	int		ret;
 
 	n = 0;
 	while (cmds[n])
@@ -31,8 +32,9 @@ void		*ft_exec(t_cmd **cmds, char **env)
 			if (cmds[n]->child == 0)
 			{
 				ft_putendl("Child start");
-				execve(cmds[n]->name, cmds[n]->argv, env);
-				ft_putendl("Child end");
+				ret = execve(cmds[n]->name, cmds[n]->argv, env);
+				perror(NAME);
+				ft_putendl("\nChild end");
 				exit(0);
 			}
 			else
