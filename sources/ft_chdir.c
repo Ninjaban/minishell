@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:35:46 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/18 19:03:27 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ static int		ft_parent(char *name, char *pwd, char ***env, size_t n)
 		free(str);
 		str = tmp;
 	}
-	ft_setenv(ft_strjoin(name, ft_strjoin("=", str)), &(*env));
+	ft_setenv(ft_cvar(name, str), &(*env), TRUE);
 	chdir(str);
+	ft_free_tab(tab);
+	free(str);
 	return (TRUE);
 }
 
@@ -70,9 +72,10 @@ static int		ft_changedir(char *name, char *pwd, char *dir, char ***env)
 	free(tmp);
 	if ((ft_access_dir(path)) == 1)
 	{
-		ft_setenv(ft_strjoin(name, ft_strjoin("=", path)), &(*env));
+		ft_setenv(ft_cvar(name, path), &(*env), TRUE);
 		chdir(path);
 	}
+	free(path);
 	return (0);
 }
 
@@ -91,8 +94,10 @@ static void		ft_home(char ***env)
 		ft_error(ERROR_ALLOC);
 		return ;
 	}
-	ft_setenv(ft_strjoin(pwd[0], ft_strjoin("=", home[1])), &(*env));
+	ft_setenv(ft_cvar(pwd[0], home[1]), &(*env), TRUE);
 	chdir(home[1]);
+	ft_free_tab(pwd);
+	ft_free_tab(home);
 }
 
 void			ft_chdir(char ***env, char *str, size_t i)

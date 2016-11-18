@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/18 14:53:12 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/18 19:01:58 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_chdir.c \
+SRC			=	ft_chdir_tools.c \
+				ft_chdir.c \
 				ft_unsetenv.c \
 				ft_setenv.c \
 				ft_env.c \
@@ -37,7 +38,7 @@ SRCS		=	$(SRC:%=$(DIRSRC)%)
 OBJS		=	$(SRC:.c=.o)
 LIBS		=	$(LIB:%=$(DIRLIB)%)
 
-CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC)
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
 
 CC			=	gcc
 RM			=	rm -f

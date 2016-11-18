@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:59:02 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/18 19:00:25 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		*ft_exec(t_cmd **cmds, char ***env);
 void		ft_shell(char **env, int exit);
 int			ft_access_dir(char *path);
 char		*ft_access(char *name, char **env);
+char		*ft_cvar(char *name, char *value);
 char		**ft_getpath(char **env);
 t_cmd		**ft_parsing(char *str);
 
@@ -54,7 +55,7 @@ t_cmd		**ft_parsing(char *str);
 void		ft_echo(char **argv);
 void		ft_env(char **env);
 void		ft_unsetenv(char ***env, char *str);
-void		ft_setenv(char *str, char ***env);
+void		ft_setenv(char *str, char ***env, int bool);
 void		ft_chdir(char ***env, char *str, size_t i);
 
 #endif

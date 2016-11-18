@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 13:41:38 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/18 11:19:53 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/18 18:41:22 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -97,7 +97,7 @@ OBJS_PART2		=	$(SRC_PART2:.c=.o)
 OBJS_BONUS		=	$(SRC_BONUS:.c=.o)
 OBJS_GNL		=	$(SRC_GNL:.c=.o)
 
-CFLAGS			=	-Wall -Wextra -Werror -I./$(DIRINC)
+CFLAGS			=	-Wall -Wextra -I./$(DIRINC)
 
 CC				=	gcc
 LIB				=	ar rc

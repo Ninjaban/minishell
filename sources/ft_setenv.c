@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 22:06:46 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:17:47 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/18 19:01:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		ft_add_var(char ***env, char *str, size_t n)
 	*env = tab;
 }
 
-void			ft_setenv(char *str, char ***env)
+void			ft_setenv(char *str, char ***env, int bool)
 {
 	char	**tab;
 	size_t	n;
@@ -69,6 +69,7 @@ void			ft_setenv(char *str, char ***env)
 	}
 	if (ft_tablen(tab) != 2)
 	{
+		ft_free_tab(tab);
 		ft_error(ERROR_SYNTAX);
 		return ;
 	}
@@ -76,4 +77,7 @@ void			ft_setenv(char *str, char ***env)
 		ft_change_var(&(*env), str, n);
 	else
 		ft_add_var(&(*env), str, n);
+	ft_free_tab(tab);
+	if (bool == TRUE)
+		free(str);
 }
