@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 18:54:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 19:48:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/18 15:37:12 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "shell.h"
 #include "error.h"
 
-static char	*ft_trypath(char *name, char **path)
+static char		*ft_trypath(char *name, char **path)
 {
-	char	*tmp;
-	int		n;
+	char		*tmp;
+	int			n;
 
 	n = 0;
 	while (path[n])
@@ -38,10 +38,10 @@ static char	*ft_trypath(char *name, char **path)
 	return (NULL);
 }
 
-char		*ft_access(char *name, char **env)
+char			*ft_access(char *name, char **env)
 {
-	char	**path;
-	char	*tmp;
+	char		**path;
+	char		*tmp;
 
 	if (access(name, F_OK) == 0)
 	{
@@ -62,4 +62,25 @@ char		*ft_access(char *name, char **env)
 	tmp = ft_trypath(name, path);
 	free(path);
 	return (tmp);
+}
+
+int				ft_access_dir(char *path)
+{
+	struct stat	*buf;
+
+	if (path && access(path, F_OK) != 0)
+	{
+		ft_error(ERROR_NOTFOUND);
+		return (-1);
+	}
+	if ((buf = malloc(sizeof(struct stat))) == NULL)
+	{
+		ft_error(ERROR_ALLOC);
+		return (-1);
+	}
+	if (stat(path, buf) == -1)
+		return (-1);
+	if (S_ISDIR(buf->st_mode))
+		return (TRUE);
+	return (FALSE);
 }

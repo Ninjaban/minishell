@@ -6,13 +6,17 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/17 21:42:06 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/18 14:53:12 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_echo.c \
+SRC			=	ft_chdir.c \
+				ft_unsetenv.c \
+				ft_setenv.c \
+				ft_env.c \
+				ft_echo.c \
 				ft_path.c \
 				ft_access.c \
 				ft_exec.c \
@@ -33,7 +37,7 @@ SRCS		=	$(SRC:%=$(DIRSRC)%)
 OBJS		=	$(SRC:.c=.o)
 LIBS		=	$(LIB:%=$(DIRLIB)%)
 
-CFLAGS		=	-Wall -Wextra -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC)
 
 CC			=	gcc
 RM			=	rm -f

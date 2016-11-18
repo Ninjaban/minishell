@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 10:54:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 21:39:38 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/18 15:52:40 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	ft_exec_child(t_cmd *cmds, char **env)
 
 	if ((cmd = ft_access(cmds->name, env)) != NULL)
 	{
-		if (ft_strcmp(cmds->name, "echo") == 0)
-			ft_echo(cmds->argv);
 		if (execve(cmd, cmds->argv, env) == -1)
 			ft_error(ERROR_EXEC);
 		free(cmd);
@@ -29,7 +27,24 @@ static void	ft_exec_child(t_cmd *cmds, char **env)
 	exit(0);
 }
 
-void		*ft_exec(t_cmd **cmds, char **env)
+static int	ft_builtins(t_cmd *cmds, char ***env)
+{
+	if (ft_strcmp(cmds->name, "echo") == 0)
+		ft_echo(cmds->argv);
+	else if (ft_strncmp(cmds->name, "export", 5) == 0)
+		ft_setenv(cmds->argv[1], &(*env));
+	else if (ft_strncmp(cmds->name, "del", 2) == 0)
+		ft_unsetenv(&(*env), cmds->argv[1]);
+	else if (ft_strcmp(cmds->name, "env") == 0)
+		ft_env(*env);
+	else if (ft_strcmp(cmds->name, "cd") == 0)
+		ft_chdir(&(*env), cmds->argv[1], 0);
+	else
+		return (FALSE);
+	return (TRUE);
+}
+
+void		*ft_exec(t_cmd **cmds, char ***env)
 {
 	size_t	n;
 	int		status;
@@ -41,16 +56,17 @@ void		*ft_exec(t_cmd **cmds, char **env)
 		{
 			if (ft_strcmp(cmds[n]->name, "exit") == 0)
 				return (EXIT);
-			if ((cmds[n]->child = fork()) == -1)
-				return (ERROR_FORK);
-			if (cmds[n]->child == 0)
-				ft_exec_child(cmds[n], env);
-			else
-				wait(&status);
+			if (ft_builtins(cmds[n], &(*env)) == FALSE)
+			{
+				if ((cmds[n]->child = fork()) == -1)
+					return (ERROR_FORK);
+				if (cmds[n]->child == 0)
+					ft_exec_child(cmds[n], *env);
+				else
+					wait(&status);
+			}
 		}
 		n = n + 1;
 	}
-	if (env)
-		return (NULL);
 	return (NULL);
 }
