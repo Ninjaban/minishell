@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:53:39 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 19:02:34 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/19 13:17:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ char		*ft_cvar(char *name, char *value)
 	}
 	free(tmp);
 	return (var);
+}
+
+char		*ft_joinpath(char *src, char *str)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(src, str);
+	free(src);
+	src = tmp;
+	return (str);
 }

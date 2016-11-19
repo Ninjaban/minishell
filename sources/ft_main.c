@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 19:04:38 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/19 13:09:43 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static char	**ft_tabcpy(char **tab)
 {
 	char	**cpy;
-	size_t	n;
+	int		n;
 
 	n = 0;
 	if (!tab)
@@ -30,17 +30,14 @@ static char	**ft_tabcpy(char **tab)
 	while (tab[n])
 		cpy[n++] = NULL;
 	cpy[n] = NULL;
-	n = 0;
-	while (tab[n])
-	{
+	n = -1;
+	while (tab[++n])
 		if ((cpy[n] = ft_strdup(tab[n])) == NULL)
 		{
 			ft_error(ERROR_ALLOC);
 			ft_free_tab(cpy);
 			return (NULL);
 		}
-		n = n + 1;
-	}
 	return (cpy);
 }
 

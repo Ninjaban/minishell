@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 19:03:27 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/19 13:18:08 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int		ft_parent(char *name, char *pwd, char ***env, size_t n)
 {
 	char		**tab;
 	char		*str;
-	char		*tmp;
 
 	if ((tab = ft_strsplit(pwd, '/')) == NULL)
 		return (-1);
@@ -39,14 +38,8 @@ static int		ft_parent(char *name, char *pwd, char ***env, size_t n)
 	while (tab[n + 1])
 	{
 		if (n > 0)
-		{
-			tmp = ft_strjoin(str, "/");
-			free(str);
-			str = tmp;
-		}
-		tmp = ft_strjoin(str, tab[n++]);
-		free(str);
-		str = tmp;
+			str = ft_joinpath(str, "/");
+		str = ft_joinpath(str, tab[n++]);
 	}
 	ft_setenv(ft_cvar(name, str), &(*env), TRUE);
 	chdir(str);
