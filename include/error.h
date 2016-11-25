@@ -17,7 +17,7 @@
 # define ERROR_ALLOC "Erreur d'allocation memoire."
 # define ERROR_FORK "Erreur lors de la création d'un nouveau processus."
 # define ERROR_NOTFOUND "Fichier introuvable."
-# define ERROR_PERMS "Vous n'avez pas les droits suffisant."
+# define ERROR_PERMS "Vous n'avez pas les droits suffisants."
 # define ERROR_EXEC "Erreur lors de l'execution."
 # define ERROR_SYNTAX "Erreur de syntaxe."
 # define ERROR_ENV "Erreur d'environement."
