@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/19 13:12:27 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/25 09:22:29 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_chdir_tools.c \
+SRC			=	ft_prompt.c \
+				ft_chdir_tools.c \
 				ft_chdir.c \
 				ft_unsetenv.c \
 				ft_setenv.c \

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/22 09:34:39 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/25 09:24:11 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ static void	ft_free(t_cmd **cmds, char *str)
 void		ft_shell(char **env, int exit)
 {
 	t_cmd	**cmds;
+	size_t	n;
 	char	*str;
 	char	*tmp;
 
+	n = 0;
 	while (exit == FALSE)
 	{
-		ft_putstr(PROMPT);
+		ft_affprompt(n, env);
 		cmds = NULL;
 		str = NULL;
 		if (get_next_line(0, &str) == -1)
@@ -47,6 +49,7 @@ void		ft_shell(char **env, int exit)
 				exit = TRUE;
 		}
 		ft_free(cmds, str);
+		n = n + 1;
 	}
 	ft_free_tab(env);
 }

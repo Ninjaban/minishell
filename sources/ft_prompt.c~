@@ -1,0 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_prompt.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/11/25 09:04:01 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/25 10:28:22 by jcarra           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+#include "shell.h"
+#include "error.h"
+
+void		ft_path(char *str, char **env)
+{
+	if (str && env)
+		return ;
+}
+
+void		ft_nbcmd(char *str, size_t nbcmd)
+{
+	if (str && nbcmd)
+		return ;
+}
+
+void		ft_color(char *str)
+{
+	char	*tmp;
+	size_t	n;
+
+	tmp = NULL;
+	if (*str == '\033')
+	{
+		if (str)
+			tmp = ft_strstr(str, "m");
+		if (tmp)
+		{
+			n = tmp - str;
+			write(1, str, n);
+			while (str < tmp)
+				str++;
+		}
+	}
+}
+
+void		ft_affprompt(size_t nbcmd, char **env)
+{
+	char	*str;
+
+	str = ft_strdup(PROMPT);
+	if (str)
+	{
+		while (*str)
+		{
+			ft_color(str);
+			ft_nbcmd(str, nbcmd);
+			ft_path(str++, env);
+		}
+		//free(str);
+	}
+}
+
