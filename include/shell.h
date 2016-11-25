@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/25 11:56:21 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/25 12:57:12 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SHELL_H
 
 # define NAME "Minishell"
-# define PROMPT "\033[34;1;4mNathan: commande nº!#\033[0m - (\033[31m!W\033[0m)\n=> "
+# define PROMPT "\033[34;1;4m$: commande nº!#\033[0m - (\033[31m!W\033[0m)\n=> "
 # define FALSE 0
 # define TRUE 1
 # define EXIT "exit"
@@ -41,8 +41,9 @@ void			ft_free_tab(char **tab);
 void			ft_free_cmds(t_cmd **cmds);
 void			*ft_gestion_error(t_cmd **cmds);
 void			*ft_exec(t_cmd **cmds, char ***env);
-void			ft_shell(char **env, int exit);
+void			ft_shell(char **env, int exit, size_t n);
 void			ft_affprompt(size_t nbcmd, char **env);
+void			ft_prompt_path(char **tab, char bool);
 int				ft_access_dir(char *path);
 char			*ft_access(char *name, char **env);
 char			*ft_cvar(char *name, char *value);

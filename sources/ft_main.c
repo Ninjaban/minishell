@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/22 09:29:29 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/25 12:55:18 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		sig_handler(int signo)
 	if (signo == SIGINT)
 	{
 		ft_putstr("\n");
-		ft_putstr(PROMPT);
+		ft_putstr("$> ");
 	}
 }
 
@@ -58,7 +58,7 @@ int			main(int ac, char **av, char **env)
 		return (1);
 	if (signal(SIGINT, sig_handler) == SIG_ERR)
 		return (1);
-	ft_shell(cpy, FALSE);
+	ft_shell(cpy, FALSE, 0);
 	if (ac && av && env)
 		return (0);
 	return (0);
