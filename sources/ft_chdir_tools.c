@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:53:39 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/19 13:17:15 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 11:14:27 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ char		*ft_joinpath(char *src, char *str)
 	free(src);
 	src = tmp;
 	return (str);
+}
+
+void		ft_init_changedir(char **pwd, char **tab, char ***env)
+{
+	size_t	n;
+
+	n = 0;
+	while (tab[n])
+		if ((ft_changedir(pwd[0], pwd[1], tab[n++], &(*env))) == -1)
+		{
+			ft_free_tab(tab);
+			ft_free_tab(pwd);
+			ft_error(ERROR_ALLOC);
+			return ;
+		}
+	ft_free_tab(tab);
+	ft_free_tab(pwd);
 }

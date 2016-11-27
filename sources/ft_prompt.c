@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 09:04:01 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/25 12:52:42 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 10:56:11 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				ft_path(char **str, char **env)
 				return (-1);
 			ft_prompt_path(tab, bool);
 			(*str)++;
-			free(tab);
+			ft_free_tab(tab);
 			return (TRUE);
 		}
 	}

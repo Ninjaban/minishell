@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 12:45:58 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/25 12:47:29 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 10:54:35 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		ft_prompt_path(char **tab, char bool)
 		}
 		while (dir[n])
 			n = n + 1;
-		ft_putstr(dir[n - 1]);
-		free(dir);
+		ft_putstr((n > 0) ? dir[n - 1] : "/");
+		ft_free_tab(dir);
 	}
 }

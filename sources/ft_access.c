@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 18:54:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:37:12 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 10:58:35 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,14 @@ int				ft_access_dir(char *path)
 		return (-1);
 	}
 	if (stat(path, buf) == -1)
+	{
+		free(buf);
 		return (-1);
+	}
 	if (S_ISDIR(buf->st_mode))
+	{
+		free(buf);
 		return (TRUE);
+	}
 	return (FALSE);
 }

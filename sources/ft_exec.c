@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 10:54:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 19:01:31 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 11:12:04 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_builtins(t_cmd *cmds, char ***env)
 	else if (ft_strcmp(cmds->name, "env") == 0)
 		ft_env(*env);
 	else if (ft_strcmp(cmds->name, "cd") == 0)
-		ft_chdir(&(*env), cmds->argv[1], 0);
+		ft_chdir(&(*env), cmds->argv[1]);
 	else
 		return (FALSE);
 	return (TRUE);

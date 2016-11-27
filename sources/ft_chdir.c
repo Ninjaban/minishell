@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/25 11:57:13 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/27 11:17:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		ft_parent(char *name, char *pwd, char ***env, size_t n)
 	return (TRUE);
 }
 
-static int		ft_changedir(char *name, char *pwd, char *dir, char ***env)
+int				ft_changedir(char *name, char *pwd, char *dir, char ***env)
 {
 	char		*tmp;
 	char		*path;
@@ -93,7 +93,7 @@ static void		ft_home(char ***env)
 	ft_free_tab(home);
 }
 
-void			ft_chdir(char ***env, char *str, size_t i)
+void			ft_chdir(char ***env, char *str)
 {
 	size_t		n;
 	char		**tab;
@@ -109,14 +109,15 @@ void			ft_chdir(char ***env, char *str, size_t i)
 		ft_error(ERROR_ENV);
 		return ;
 	}
+	if (str[0] == '/' && ft_access_dir(str) == 1)
+	{
+		ft_setenv(ft_cvar("PWD", str), &(*env), TRUE);
+		chdir(str);
+		return ;
+	}
 	if ((tab = ft_strsplit(str, '/')) == NULL)
 		return ;
 	if ((pwd = ft_strsplit((*env)[n], '=')) == NULL)
 		return ;
-	while (tab[i])
-		if ((ft_changedir(pwd[0], pwd[1], tab[i++], &(*env))) == -1)
-		{
-			ft_error(ERROR_ALLOC);
-			return ;
-		}
+	ft_init_changedir(pwd, tab, &(*env));
 }
