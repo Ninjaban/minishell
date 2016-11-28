@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/28 10:55:31 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/28 16:03:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <term.h>
 
 /*
 **	Structures
@@ -78,5 +79,14 @@ void			ft_env(char **env);
 void			ft_unsetenv(char ***env, char *str);
 void			ft_setenv(char *str, char ***env, int bool);
 void			ft_chdir(char ***env, char *str);
+
+/*
+**	Termcaps
+*/
+
+int				fputchar(int c);
+int				ft_goto(char *cmd, int col, int line);
+int				ft_termcaps_end(void);
+int				ft_termcaps_init(void);
 
 #endif
