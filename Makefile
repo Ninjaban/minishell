@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/25 12:46:48 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/28 10:53:00 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_prompt_path.c \
+SRC			=	ft_history.c \
+				ft_prompt_path.c \
 				ft_prompt.c \
 				ft_chdir_tools.c \
 				ft_chdir.c \
