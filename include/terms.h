@@ -6,12 +6,26 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 09:00:49 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/29 09:23:56 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/29 15:47:32 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERMS_H
 # define TERMS_H
+
+/*
+** # define LIM_HIST_ROW 3
+** # define LIM_HIST_COL 115
+**
+** # define LIM_PROM_ROW 2
+** # define LIM_PROM_COL 115
+**
+** # define LIM_FILE_ROW 5
+** # define LIM_FILE_COL 115
+**
+** # define LIM_OUT_ROW 100
+** # define LIM_OUT_COL 115
+*/
 
 # include <sys/ioctl.h>
 
@@ -19,9 +33,10 @@ typedef char	t_bool;
 
 typedef struct	s_win
 {
-	t_bool		display;
 	size_t		col;
 	size_t		row;
+	size_t		x;
+	size_t		y;
 }				t_win;
 
 typedef struct	s_term
@@ -31,6 +46,8 @@ typedef struct	s_term
 	t_win		*prompt;
 	t_win		*files;
 	t_win		*out;
+	size_t		col;
+	size_t		row;
 }				t_term
 
 #endif

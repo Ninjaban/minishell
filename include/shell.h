@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/28 16:03:03 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/29 12:57:06 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 
 # define NAME "Minishell"
-# define PROMPT "\033[34;1;4m$: commande nº!#\033[0m - (\033[31m!W\033[0m)\n=> "
+# define PROMPT "\033[34;1;4m$: commande nº!#\033[0m - (\033[31m!W\033[0m) => "
 # define HISTORY_SIZE 1000
 # define FALSE 0
 # define TRUE 1
