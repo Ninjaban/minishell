@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/29 12:57:06 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/30 11:32:45 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <term.h>
 
 /*
 **	Structures
@@ -52,12 +51,12 @@ typedef struct	s_cmd
 */
 
 void			ft_error(char *error);
-void			ft_free_tab(char **tab);
+void			ft_free_tab(char **t);
 void			ft_free_cmds(t_cmd **cmds);
 void			ft_shell(char **env, int exit);
 void			ft_affprompt(size_t nbcmd, char **env);
-void			ft_prompt_path(char **tab, char bool);
-void			ft_init_changedir(char **pwd, char **tab, char ***env);
+void			ft_prompt_path(char **t, char b);
+void			ft_init_changedir(char **pwd, char **t, char ***env);
 void			*ft_gestion_error(t_cmd **cmds);
 void			*ft_exec(t_cmd **cmds, char ***env);
 int				ft_access_dir(char *path);
@@ -77,7 +76,7 @@ t_cmd			**ft_parsing(char *str);
 void			ft_echo(char **argv);
 void			ft_env(char **env);
 void			ft_unsetenv(char ***env, char *str);
-void			ft_setenv(char *str, char ***env, int bool);
+void			ft_setenv(char *str, char ***env, int b);
 void			ft_chdir(char ***env, char *str);
 
 /*

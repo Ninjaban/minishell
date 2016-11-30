@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 09:00:49 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/29 15:47:32 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/30 11:29:17 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 ** # define LIM_OUT_COL 115
 */
 
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
 # include <sys/ioctl.h>
 
 typedef char	t_bool;
@@ -48,6 +51,15 @@ typedef struct	s_term
 	t_win		*out;
 	size_t		col;
 	size_t		row;
-}				t_term
+}				t_term;
+
+typedef struct 	s_display
+{
+	char		**history;
+	char		**prompt;
+	char		**files;
+	char		**out;
+	size_t		hist_iter;
+}				t_display;
 
 #endif

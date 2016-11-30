@@ -6,13 +6,15 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/29 16:59:54 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/30 11:38:41 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_history.c \
+SRC			=	ft_terms.c \
+				ft_termcaps.c \
+				ft_history.c \
 				ft_prompt_path.c \
 				ft_prompt.c \
 				ft_chdir_tools.c \
@@ -42,6 +44,7 @@ OBJS		=	$(SRC:.c=.o)
 LIBS		=	$(LIB:%=$(DIRLIB)%)
 
 CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
+LFLAGS		=	-lncurses
 
 CC			=	gcc
 RM			=	rm -f
@@ -54,7 +57,7 @@ all		:		$(NAME)
 $(NAME)	:
 				@$(MAKE) $(DIRLIB)
 				@$(CC) $(CFLAGS) -c $(SRCS)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(LFLAGS)
 				@$(ECHO) '\033[32m> Compiled\n\033[0m'
 
 clean	:

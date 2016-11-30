@@ -6,11 +6,12 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:34:29 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/28 16:04:23 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/30 11:33:10 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "terms.h"
 #include "error.h"
 #include "shell.h"
 
@@ -51,6 +52,7 @@ int			ft_termcaps_end(void)
 	term.c_lflag = (ICANON | ECHO);
 	if (tcsetattr(0, TCSANOW, &term) == -1)
 		return (FALSE);
+	return (TRUE);
 }
 
 int			ft_termcaps_init(void)
@@ -62,10 +64,10 @@ int			ft_termcaps_init(void)
 		return (FALSE);
 	if (tgetent(NULL, name) != 1)
 	{
-		free(name);
+		free((char *)name);
 		return (FALSE);
 	}
-	free(name);
+	free((char *)name);
 	if (tcgetattr(0, &term) == -1)
 		return (FALSE);
 	term.c_lflag &= ~(ICANON);

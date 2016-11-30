@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 11:49:46 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/29 16:44:33 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/30 11:22:00 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ t_term			*ft_init_term(void)
 {
 	t_term			*term;
 	size_t			col;
-	size_t			x;
 
 	if ((term = malloc(sizeof(t_term))) == NULL)
 		return (NULL);
+	ft_init_size(&term);
 	col = term->col / 2;
 	term->display = (term->row > 10 && term->col > 50) ? TRUE : FALSE;
 	term->history = ((term->row > 6 && col >= 50) || term->row > 27) ?
