@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 10:54:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/27 11:12:04 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/06 16:08:00 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	ft_builtins(t_cmd *cmds, char ***env)
 {
 	if (ft_strcmp(cmds->name, "echo") == 0)
 		ft_echo(cmds->argv);
-	else if (ft_strncmp(cmds->name, "export", 5) == 0)
+	else if (ft_strncmp(cmds->name, "setenv", 5) == 0)
 		ft_setenv(cmds->argv[1], &(*env), FALSE);
-	else if (ft_strncmp(cmds->name, "del", 2) == 0)
+	else if (ft_strncmp(cmds->name, "unsetenv", 2) == 0)
 		ft_unsetenv(&(*env), cmds->argv[1]);
 	else if (ft_strcmp(cmds->name, "env") == 0)
 		ft_env(*env);

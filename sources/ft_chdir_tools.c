@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:53:39 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/27 11:14:27 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/06 16:08:20 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ char		*ft_joinpath(char *src, char *str)
 
 	tmp = ft_strjoin(src, str);
 	free(src);
-	src = tmp;
-	return (str);
+	return (tmp);
 }
 
 void		ft_init_changedir(char **pwd, char **tab, char ***env)

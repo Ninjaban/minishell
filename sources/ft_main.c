@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/27 10:34:30 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/06 15:25:57 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		sig_handler(int signo)
 	if (signo == SIGINT)
 	{
 		ft_putstr("\n");
-		ft_putstr("$> ");
+		ft_affprompt(0, NULL);
 	}
 }
 

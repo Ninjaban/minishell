@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 09:04:01 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/27 10:56:11 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/06 15:26:25 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	ft_find_path(char **env, char *str)
 	return (n);
 }
 
-int				ft_path(char **str, char **env)
+static int		ft_path(char **str, char **env)
 {
 	size_t	n;
 	char	**tab;
@@ -37,6 +37,7 @@ int				ft_path(char **str, char **env)
 		bool = (bool != FALSE && ft_strncmp(*str, "!W", 1) == 0) ? TRUE : bool;
 		if (bool != -1)
 		{
+			(*str)++;
 			if (!env)
 				return (-1);
 			n = ft_find_path(env, "PWD");
@@ -46,7 +47,6 @@ int				ft_path(char **str, char **env)
 			if (!tab)
 				return (-1);
 			ft_prompt_path(tab, bool);
-			(*str)++;
 			ft_free_tab(tab);
 			return (TRUE);
 		}
@@ -54,13 +54,16 @@ int				ft_path(char **str, char **env)
 	return (FALSE);
 }
 
-int				ft_nbcmd(char **str, size_t nbcmd)
+static int		ft_nbcmd(char **str, size_t nbcmd)
 {
 	if (str && *str)
 	{
 		if (ft_strncmp(*str, "!#", 1) == 0)
 		{
-			ft_putnbr(nbcmd);
+			if (nbcmd == 0)
+				ft_putstr("#");
+			else
+				ft_putnbr(nbcmd);
 			(*str)++;
 			return (TRUE);
 		}
@@ -68,7 +71,7 @@ int				ft_nbcmd(char **str, size_t nbcmd)
 	return (FALSE);
 }
 
-int				ft_color(char **str)
+static int		ft_color(char **str)
 {
 	char	*tmp;
 	size_t	n;
