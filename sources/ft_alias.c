@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 09:09:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 10:31:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 12:45:52 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_alias	*ft_alias_new(char *key, char *value)
 		return (NULL);
 	new->key = ft_strdup(key);
 	new->value = (value != NULL) ? ft_strdup(value) : NULL;
+	new->next = NULL;
 	return (new);
 }
 
@@ -79,11 +80,28 @@ static int		ft_alias_add(t_cmd *cmd, t_alias **alias)
 	return (TRUE);
 }
 
+static void		ft_alias_aff(t_alias *alias)
+{
+	t_alias	*tmp;
+
+	tmp = alias;
+	while (tmp)
+	{
+		ft_putstr("alias ");
+		ft_putstr(tmp->key);
+		ft_putstr("=");
+		ft_putendl(tmp->value);
+		tmp = tmp->next;
+	}
+}
+
 int				ft_alias(t_cmd *cmd, t_alias **alias)
 {
 	if (!alias)
 		return (FALSE);
-	if (!(*alias))
+	if (!cmd->argv[1])
+		ft_alias_aff(*alias);
+	else if (!(*alias))
 	{
 		if (ft_alias_init(cmd, &(*alias)) == FALSE)
 			return (FALSE);

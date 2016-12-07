@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 11:48:40 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 13:43:56 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_launcher(t_sys **sys, char **str)
 		ft_error(ERROR_READ);
 	else if ((ft_history_maj(&((*sys)->history), *str, (*sys)->env)) == FALSE)
 		ft_error(ERROR_ALLOC);
-	else if (((*sys)->cmds = ft_parsing(*str)) == NULL)
+	else if (((*sys)->cmds = ft_parsing(*str, *sys)) == NULL)
 		ft_error(ERROR_ALLOC);
 	else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 		ft_error(tmp);
@@ -50,6 +50,7 @@ static int	ft_shrc_init(t_sys **sys)
 	int		fd;
 
 	str = NULL;
+	(*sys)->alias = NULL;
 	if ((fd = open("/Users/jcarra/.42shrc", O_RDONLY)) == -1)
 		return (FALSE);
 	while (get_next_line(fd, &str) == 1)
@@ -59,8 +60,8 @@ static int	ft_shrc_init(t_sys **sys)
 		else
 		{
 			ft_putstr("-");
-			if (((*sys)->cmds = ft_parsing(str)) == NULL)
-			ft_error(ERROR_ALLOC);
+			if (((*sys)->cmds = ft_parsing(str, *sys)) == NULL)
+				ft_error(ERROR_ALLOC);
 		else
 		{
 			ft_putstr("> ");
@@ -69,11 +70,11 @@ static int	ft_shrc_init(t_sys **sys)
 		else if ((*sys)->cmds[0])
 		{
 			ft_putendl((*sys)->cmds[0]->argv[1]);
-/*			if ((ft_strcmp((*sys)->cmds[0]->name, "setenv") == 0) ||
+			if ((ft_strcmp((*sys)->cmds[0]->name, "setenv") == 0) ||
 				(ft_strcmp((*sys)->cmds[0]->name, "export") == 0))
 				ft_setenv((*sys)->cmds[0]->argv[1], &((*sys)->env), FALSE);
 			else if (ft_strcmp((*sys)->cmds[0]->name, "alias") == 0)
-			ft_alias((*sys)->cmds[0], &((*sys)->alias));*/
+			ft_alias((*sys)->cmds[0], &((*sys)->alias));
 		}
 		}
 		}

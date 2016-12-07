@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 10:56:43 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 13:42:19 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char			*ft_joinpath(char *src, char *str);
 char			*ft_delchar(char *str, size_t n);
 char			**ft_history_init(char **env);
 char			**ft_getpath(char **env);
-t_cmd			**ft_parsing(char *str);
+t_cmd			**ft_parsing(char *str, t_sys *sys);
 
 /*
 **	Builtins
