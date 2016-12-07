@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 13:45:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 18:35:55 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_cmd	*ft_parsecmd(char *str)
 	t_cmd		*cmd;
 	char		**tab;
 
-	if ((str = ft_parse_parenthesis(str, ' ', '\a')) == NULL)
+	if ((str = ft_parse_parenthesis(ft_strdup(str), ' ', '\a')) == NULL)
 		return (NULL);
 	if ((tab = ft_strsplit(str, ' ')) == NULL)
 		return (NULL);
@@ -151,15 +151,11 @@ t_cmd			**ft_parsing(char *str, t_sys *sys)
 		cmds[n++] = NULL;
 	n = -1;
 	while (tab[++n])
-	{
-		str = ft_check_alias(str, sys->alias);
-		ft_putendl(str);
-		if ((cmds[n] = ft_parsecmd(tab[n])) == NULL)
+		if ((cmds[n] = ft_parsecmd(ft_check_alias(tab[n], sys->alias))) == NULL)
 		{
 			ft_free_cmds(cmds);
 			return (NULL);
 		}
-	}
 	ft_free_tab(tab);
 	return (cmds);
 }

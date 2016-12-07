@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/12/07 10:56:54 by jcarra           ###   ########.fr        #
+#    Updated: 2016/12/07 18:27:48 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -44,7 +44,7 @@ OBJS		=	$(SRC:.c=.o)
 LIBS		=	$(LIB:%=$(DIRLIB)%)
 
 CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -I./$(DIRLIB)$(DIRINC) -g3
-LFLAGS		=	-lncurses
+LFLAGS		=
 
 CC			=	gcc
 RM			=	rm -f

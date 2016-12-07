@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 08:55:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/28 11:08:56 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 20:06:44 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char		**ft_history_init(char **env)
 	if ((history = malloc(sizeof(char *) * HISTORY_SIZE + 1)) == NULL)
 		return (NULL);
 	n = 0;
-	while (n < HISTORY_SIZE + 1)
+	while (n < HISTORY_SIZE)
 		history[n++] = NULL;
 	if ((fd = ft_history_file(env)) == -1)
 		return (NULL);

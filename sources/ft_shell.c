@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 13:43:56 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 18:36:22 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_shrc_init(t_sys **sys)
 
 	str = NULL;
 	(*sys)->alias = NULL;
-	if ((fd = open("/Users/jcarra/.42shrc", O_RDONLY)) == -1)
+	if ((fd = open("/home/nathan/.42shrc", O_RDONLY)) == -1)
 		return (FALSE);
 	while (get_next_line(fd, &str) == 1)
 	{
