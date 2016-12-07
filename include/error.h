@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:19:14 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 13:26:47 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 10:09:58 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # define ERROR_EXEC "Erreur lors de l'execution."
 # define ERROR_SYNTAX "Erreur de syntaxe."
 # define ERROR_ENV "Erreur d'environement."
+# define ERROR_RC "Erreur lors du traitement du ~/.42shrc"
 
 #endif

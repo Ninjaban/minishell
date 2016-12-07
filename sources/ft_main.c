@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/06 15:25:57 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 09:52:17 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,15 @@ void		sig_handler(int signo)
 
 int			main(int ac, char **av, char **env)
 {
-	char	**cpy;
+	t_sys	*sys;
 
-	if ((cpy = ft_tabcpy(env)) == NULL)
+	if ((sys = malloc(sizeof(t_sys))) == NULL)
+		return (1);
+	if ((sys->env = ft_tabcpy(env)) == NULL)
 		return (1);
 	if (signal(SIGINT, sig_handler) == SIG_ERR)
 		return (1);
-	ft_shell(cpy, FALSE);
+	ft_shell(sys, FALSE);
 	if (ac && av && env)
 		return (0);
 	return (0);

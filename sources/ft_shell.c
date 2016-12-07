@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/06 15:22:45 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 11:48:40 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,51 +22,91 @@ static void	ft_free(t_cmd **cmds, char *str)
 		ft_free_cmds(cmds);
 }
 
-static int	ft_launcher(char ***env, t_cmd ***cmds, char **str, char ***history)
+static int	ft_launcher(t_sys **sys, char **str)
 {
 	static size_t	n = 0;
 	char			*tmp;
 
-	ft_affprompt(++n, *env);
-	*cmds = NULL;
+	ft_affprompt(++n, (*sys)->env);
+	(*sys)->cmds = NULL;
 	*str = NULL;
 	if (get_next_line(0, &(*str)) == -1)
 		ft_error(ERROR_READ);
-	else if ((ft_history_maj(&(*history), *str, *env)) == FALSE)
+	else if ((ft_history_maj(&((*sys)->history), *str, (*sys)->env)) == FALSE)
 		ft_error(ERROR_ALLOC);
-	else if ((*cmds = ft_parsing(*str)) == NULL)
+	else if (((*sys)->cmds = ft_parsing(*str)) == NULL)
 		ft_error(ERROR_ALLOC);
-	else if ((tmp = ft_gestion_error(*cmds)) != NULL)
+	else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 		ft_error(tmp);
 	else
 		return (TRUE);
 	return (FALSE);
 }
 
-void		ft_shell(char **env, int exit)
+static int	ft_shrc_init(t_sys **sys)
 {
-	t_cmd	**cmds;
-	char	**history;
+	char	*str;
+	char	*tmp;
+	int		fd;
+
+	str = NULL;
+	if ((fd = open("/Users/jcarra/.42shrc", O_RDONLY)) == -1)
+		return (FALSE);
+	while (get_next_line(fd, &str) == 1)
+	{
+		if ((ft_history_maj(&((*sys)->history), str, (*sys)->env)) == FALSE)
+			ft_error(ERROR_ALLOC);
+		else
+		{
+			ft_putstr("-");
+			if (((*sys)->cmds = ft_parsing(str)) == NULL)
+			ft_error(ERROR_ALLOC);
+		else
+		{
+			ft_putstr("> ");
+			if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
+			ft_error(tmp);
+		else if ((*sys)->cmds[0])
+		{
+			ft_putendl((*sys)->cmds[0]->argv[1]);
+/*			if ((ft_strcmp((*sys)->cmds[0]->name, "setenv") == 0) ||
+				(ft_strcmp((*sys)->cmds[0]->name, "export") == 0))
+				ft_setenv((*sys)->cmds[0]->argv[1], &((*sys)->env), FALSE);
+			else if (ft_strcmp((*sys)->cmds[0]->name, "alias") == 0)
+			ft_alias((*sys)->cmds[0], &((*sys)->alias));*/
+		}
+		}
+		}
+		ft_free((*sys)->cmds, str);
+		ft_putendl("---");
+	}
+	return (TRUE);
+}
+
+void		ft_shell(t_sys *sys, int exit)
+{
 	char	*str;
 	char	*tmp;
 
-	if ((history = ft_history_init(env)) == NULL)
+	if ((sys->history = ft_history_init(sys->env)) == NULL)
 	{
 		ft_error(ERROR_READ);
 		return ;
 	}
+	if (ft_shrc_init(&sys) == FALSE)
+		ft_error(ERROR_RC);
 	while (exit == FALSE)
 	{
-		if (ft_launcher(&env, &cmds, &str, &history) == TRUE)
-			if ((tmp = ft_exec(cmds, &env)) != NULL)
+		if (ft_launcher(&sys, &str) == TRUE)
+			if ((tmp = ft_exec(&sys)) != NULL)
 			{
 				if (ft_strcmp(tmp, EXIT) != 0)
 					ft_error(tmp);
 				else
 					exit = TRUE;
 			}
-		ft_free(cmds, str);
+		ft_free(sys->cmds, str);
 	}
-	ft_free_tab(history);
-	ft_free_tab(env);
+	ft_free_tab(sys->history);
+	ft_free_tab(sys->env);
 }

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 20:54:03 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 11:52:55 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,46 @@ static char		**ft_tabcpy(char **tab)
 	return (dst);
 }
 
-static void		ft_parse_parenthesis(char **str, char c, char r)
+static char		*ft_parse_parenthesis(char *str, char c, char r)
 {
 	size_t		n;
 	int			open;
 
 	n = 0;
 	open = FALSE;
-	while ((*str)[n])
+	while (str[n])
 	{
-		if ((*str)[n] == '\"')
+		if (str[n] == '\"')
 		{
-			(*str)[n++] = ' ';
+			if ((str = ft_delchar(str, (n > 0 && str[n - 1] == '\\')
+									? n - 1 : n)) == NULL)
+				return (NULL);
 			open = (open == TRUE) ? FALSE : TRUE;
 		}
-		if (open == TRUE && (*str)[n] == c)
-			(*str)[n] = r;
+		if (open == TRUE && str[n] == c)
+			str[n] = r;
 		n = n + 1;
 	}
+	return (str);
 }
 
 static void		ft_parenthesis_undo(char ***tab)
 {
 	size_t		n;
+	size_t		i;
 
 	n = 0;
-	while ((*tab)[n])
-		ft_parse_parenthesis(&((*tab)[n++]), '\a', ' ');
+	while ((*tab) && (*tab)[n])
+	{
+		i = 0;
+		while ((*tab)[n][i])
+		{
+			if ((*tab)[n][i] == '^')
+				(*tab)[n][i] = ' ';
+			i = i + 1;
+		}
+		n = n + 1;
+	}
 }
 
 static t_cmd	*ft_parsecmd(char *str)
@@ -61,17 +74,23 @@ static t_cmd	*ft_parsecmd(char *str)
 	t_cmd		*cmd;
 	char		**tab;
 
-	ft_parse_parenthesis(&str, ' ', '\a');
+	ft_putstr("1");
+	if ((str = ft_parse_parenthesis(ft_strdup(str), ' ', '^')) == NULL)
+		return (NULL);
+	ft_putendl(str);
 	if ((tab = ft_strsplit(str, ' ')) == NULL)
 		return (NULL);
+	ft_putstr("3");
 	if ((cmd = malloc(sizeof(t_cmd))) == NULL)
 	{
 		ft_free_tab(tab);
 		return (NULL);
 	}
+	ft_putstr("4");
 	cmd->name = NULL;
 	cmd->argv = NULL;
 	ft_parenthesis_undo(&tab);
+ft_putstr("5");
 	if (!tab[0])
 		return (cmd);
 	if ((cmd->name = ft_strdup(tab[0])) == NULL)
@@ -80,6 +99,7 @@ static t_cmd	*ft_parsecmd(char *str)
 		free(cmd);
 		return (NULL);
 	}
+	ft_putstr("6");
 	cmd->argv = ft_tabcpy(tab);
 	ft_free_tab(tab);
 	return (cmd);
