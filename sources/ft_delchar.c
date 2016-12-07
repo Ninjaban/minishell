@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 10:53:13 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 11:13:10 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 12:05:11 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		*ft_delchar(char *str, size_t n)
 	size_t	i;
 
 	i = 0;
-	if ((new = malloc(ft_strlen(str))) == NULL)
+	if ((new = ft_strnew(ft_strlen(str))) == NULL)
 		return (NULL);
 	while (i < n)
 	{
@@ -29,7 +29,6 @@ char		*ft_delchar(char *str, size_t n)
 	{
 		new[i - 1] = str[i];
 	}
-	new[i - 1] = '\0';
 	free(str);
 	return (new);
 }

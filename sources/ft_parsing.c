@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 11:52:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/07 12:06:18 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		ft_parenthesis_undo(char ***tab)
 		i = 0;
 		while ((*tab)[n][i])
 		{
-			if ((*tab)[n][i] == '^')
+			if ((*tab)[n][i] == '\a')
 				(*tab)[n][i] = ' ';
 			i = i + 1;
 		}
@@ -74,23 +74,18 @@ static t_cmd	*ft_parsecmd(char *str)
 	t_cmd		*cmd;
 	char		**tab;
 
-	ft_putstr("1");
-	if ((str = ft_parse_parenthesis(ft_strdup(str), ' ', '^')) == NULL)
+	if ((str = ft_parse_parenthesis(ft_strdup(str), ' ', '\a')) == NULL)
 		return (NULL);
-	ft_putendl(str);
 	if ((tab = ft_strsplit(str, ' ')) == NULL)
 		return (NULL);
-	ft_putstr("3");
 	if ((cmd = malloc(sizeof(t_cmd))) == NULL)
 	{
 		ft_free_tab(tab);
 		return (NULL);
 	}
-	ft_putstr("4");
 	cmd->name = NULL;
 	cmd->argv = NULL;
 	ft_parenthesis_undo(&tab);
-ft_putstr("5");
 	if (!tab[0])
 		return (cmd);
 	if ((cmd->name = ft_strdup(tab[0])) == NULL)
@@ -99,7 +94,6 @@ ft_putstr("5");
 		free(cmd);
 		return (NULL);
 	}
-	ft_putstr("6");
 	cmd->argv = ft_tabcpy(tab);
 	ft_free_tab(tab);
 	return (cmd);
