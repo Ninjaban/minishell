@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 13:42:19 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:23:11 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,37 @@ void			ft_shell(t_sys *sys, int exit);
 void			ft_affprompt(size_t nbcmd, char **env);
 void			ft_prompt_path(char **t, char b);
 void			ft_init_changedir(char **pwd, char **t, char ***env);
+void			ft_alias_remove(t_alias **alias);
 void			*ft_gestion_error(t_cmd **cmds);
 void			*ft_exec(t_sys **sys);
 int				ft_access_dir(char *path);
 int				ft_changedir(char *name, char *pwd, char *dir, char ***env);
 int				ft_history_maj(char ***history, char *line, char **env);
 int				ft_alias(t_cmd *cmd, t_alias **alias);
+int				ft_unalias(t_cmd *cmd, t_alias **alias);
+int				ft_set_pwd(char ***env, char *str);
 char			*ft_access(char *name, char **env);
-char			*ft_cvar(char *name, char *value);
 char			*ft_joinpath(char *src, char *str);
 char			*ft_delchar(char *str, size_t n);
+char			*ft_strcut(char *str, size_t s, size_t e);
+char			*ft_check_alias(char *str, t_alias *alias);
+char			*ft_getenv(char **env, char *name);
+char			*ft_path_join(char *src, char *str);
+char			*ft_tild(char *str, char **env);
 char			**ft_history_init(char **env);
 char			**ft_getpath(char **env);
 t_cmd			**ft_parsing(char *str, t_sys *sys);
+size_t			ft_fpath(char **env, char *str);
 
 /*
 **	Builtins
 */
 
-void			ft_echo(char **argv);
+void			ft_echo(char **argv, char **env);
 void			ft_env(char **env);
 void			ft_unsetenv(char ***env, char *str);
 void			ft_setenv(char *str, char ***env, int b);
-void			ft_chdir(char ***env, char *str);
+int				ft_chdir(char ***env, char *str);
 
 /*
 **	Termcaps

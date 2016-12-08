@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 18:35:55 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 14:55:29 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,52 +99,20 @@ static t_cmd	*ft_parsecmd(char *str)
 	return (cmd);
 }
 
-char			*ft_strcut(char *str, size_t s, size_t e)
-{
-	size_t		n;
-	char		*new;
-
-	n = 0;
-	if ((new = malloc(e - s + 1)) == NULL)
-		return (NULL);
-	while (s < e)
-		new[n++] = str[s++];
-	new[n] = '\0';
-	return (new);
-}
-
-char			*ft_check_alias(char *str, t_alias *alias)
-{
-	t_alias		*tmp;
-	char		*new;
-
-	tmp = alias;
-	while (tmp)
-	{
-		if (ft_strncmp(str, tmp->key, ft_strlen(tmp->key) - 1) == 0 &&
-			str[ft_strlen(tmp->key)] == ' ')
-		{
-			new = ft_strcut(str, ft_strlen(tmp->key), ft_strlen(str));
-			str = ft_strjoin(tmp->value, new);
-			free(new);
-			return (str);
-		}
-		tmp = tmp->next;
-	}
-	return (str);
-}
-
 t_cmd			**ft_parsing(char *str, t_sys *sys)
 {
 	t_cmd		**cmds;
 	char		**tab;
+	char		*tmp;
 	int			n;
 
 	n = 0;
 	if (!str)
 		return (NULL);
-	if ((tab = ft_strsplit(str, ';')) == NULL)
+	tmp = ft_tild(str, sys->env);
+	if ((tab = ft_strsplit((tmp == NULL) ? str : tmp, ';')) == NULL)
 		return (NULL);
+	free(tmp);
 	if ((cmds = malloc(sizeof(t_cmd) * ft_tablen(tab) + 1)) == NULL)
 		return (NULL);
 	while ((size_t)n < ft_tablen(tab) + 1)

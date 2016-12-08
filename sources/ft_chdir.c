@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/06 15:18:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:21:59 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,110 +14,106 @@
 #include "shell.h"
 #include "error.h"
 
-static size_t	ft_find_path(char **env, char *str)
+static int	ft_chdir_path(char *path, char ***env)
 {
-	size_t		n;
-
-	n = 0;
-	while (env[n])
-		if (ft_strncmp(env[n++], str, ft_strlen(str) - 1) == 0)
-			return (n - 1);
-	return (n);
+	if (ft_access_dir(path) == 1)
+	{
+		ft_set_pwd(&(*env), path);
+		chdir(path);
+		free(path);
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
-static int		ft_parent(char *name, char *pwd, char ***env, size_t n)
+static int	ft_set_path(char **path, char *str)
 {
-	char		**tab;
-	char		*str;
+	size_t	n;
+	char	*tmp;
 
-	if ((tab = ft_strsplit(pwd, '/')) == NULL)
-		return (-1);
-	if (!tab[0])
-		return (FALSE);
-	str = ft_strdup("/");
-	while (tab[n + 1])
+	if (ft_strcmp(str, "..") != 0)
+		tmp = ft_path_join(*path, str);
+	else
 	{
-		if (n > 0)
-			str = ft_joinpath(str, "/");
-		str = ft_joinpath(str, tab[n++]);
+		n = ft_strlen(*path);
+		while (n > 0 && (*path)[n] != '/')
+			n = n - 1;
+		tmp = (n > 0) ? ft_strcut(*path, 0, n) : ft_strdup("/");
 	}
-	ft_setenv(ft_cvar(name, str), &(*env), TRUE);
-	chdir(str);
-	ft_free_tab(tab);
-	free(str);
+	free(*path);
+	*path = tmp;
+	if (!tmp)
+		return (FALSE);
 	return (TRUE);
 }
 
-int				ft_changedir(char *name, char *pwd, char *dir, char ***env)
+static int	ft_init_chdir_path(char **tab, char ***env)
 {
-	char		*tmp;
-	char		*path;
+	size_t	n;
+	char	**path;
 
-	if (ft_strcmp(dir, "..") == 0)
-		return (ft_parent(name, pwd, &(*env), 0));
-	if ((tmp = ft_strjoin(pwd, "/")) == NULL)
-		return (-1);
-	if ((path = ft_strjoin(tmp, dir)) == NULL)
-	{
-		free(tmp);
-		return (-1);
-	}
-	free(tmp);
-	if ((ft_access_dir(path)) == 1)
-	{
-		ft_setenv(ft_cvar(name, path), &(*env), TRUE);
-		chdir(path);
-	}
-	free(path);
-	return (0);
-}
-
-static void		ft_home(char ***env)
-{
-	char		**pwd;
-	char		**home;
-
-	if ((pwd = ft_strsplit((*env)[ft_find_path((*env), "PWD")], '=')) == NULL)
+	n = 0;
+	if ((path = ft_strsplit((*env)[ft_fpath((*env), "PWD")], '=')) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
-		return ;
+		return (FALSE);
 	}
-	if ((home = ft_strsplit((*env)[ft_find_path((*env), "HOME")], '=')) == NULL)
-	{
-		ft_error(ERROR_ALLOC);
-		return ;
-	}
-	ft_setenv(ft_cvar(pwd[0], home[1]), &(*env), TRUE);
-	chdir(home[1]);
-	ft_free_tab(pwd);
-	ft_free_tab(home);
+	while (tab[n])
+		if (ft_set_path(&(path[1]), tab[n++]) == FALSE)
+		{
+			ft_error(ERROR_ALLOC);
+			return (FALSE);
+		}
+	ft_chdir_path(ft_strdup(path[1]), &(*env));
+	ft_free_tab(path);
+	return (TRUE);
 }
 
-void			ft_chdir(char ***env, char *str)
+static int	ft_old(char ***env)
 {
-	size_t		n;
-	char		**tab;
-	char		**pwd;
+	char	**old;
 
-	if (!str || ft_strcmp(str, "~") == 0)
-	{
-		ft_home(&(*env));
-		return ;
-	}
-	if ((n = ft_find_path(*env, "PWD")) == ft_tablen(*env))
+	if (ft_fpath((*env), "OLDPWD") == ft_tablen((*env)))
 	{
 		ft_error(ERROR_ENV);
-		return ;
+		return (FALSE);
 	}
-	if (str[0] == '/' && ft_access_dir(str) == 1)
+	if ((old = ft_strsplit((*env)[ft_fpath((*env), "OLDPWD")], '=')) == NULL)
 	{
-		ft_setenv(ft_cvar("PWD", str), &(*env), TRUE);
-		chdir(str);
-		return ;
+		ft_error(ERROR_ALLOC);
+		return (FALSE);
 	}
+	if (ft_set_pwd(&(*env), old[1]) == FALSE)
+	{
+		ft_free_tab(old);
+		return (FALSE);
+	}
+	chdir(old[1]);
+	ft_free_tab(old);
+	return (TRUE);
+}
+
+int			ft_chdir(char ***env, char *str)
+{
+	char		**tab;
+
+	if (ft_fpath(*env, "PWD") == ft_tablen(*env))
+	{
+		ft_error(ERROR_ENV);
+		return (FALSE);
+	}
+	if (!str)
+		return (ft_chdir_path(ft_getenv(*env, "HOME"), &(*env)));
+	if (ft_strcmp(str, "-") == 0)
+		return (ft_old(&(*env)));
+	if (str[0] == '/')
+		return (ft_chdir_path(ft_strdup(str), &(*env)));
 	if ((tab = ft_strsplit(str, '/')) == NULL)
-		return ;
-	if ((pwd = ft_strsplit((*env)[n], '=')) == NULL)
-		return ;
-	ft_init_changedir(pwd, tab, &(*env));
+	{
+		ft_error(ERROR_ALLOC);
+		return (FALSE);
+	}
+	ft_init_chdir_path(tab, &(*env));
+	ft_free_tab(tab);
+	return (TRUE);
 }

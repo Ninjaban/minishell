@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:19:14 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 10:09:58 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 13:19:30 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERROR_ALLOC "Erreur d'allocation memoire."
 # define ERROR_FORK "Erreur lors de la création d'un nouveau processus."
 # define ERROR_NOTFOUND "Fichier introuvable."
+# define ERROR_DNOTFOUND "Dossier introuvable."
 # define ERROR_PERMS "Vous n'avez pas les droits suffisants."
 # define ERROR_EXEC "Erreur lors de l'execution."
 # define ERROR_SYNTAX "Erreur de syntaxe."

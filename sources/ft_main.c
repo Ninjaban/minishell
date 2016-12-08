@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 09:52:17 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:25:46 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 #include "shell.h"
 #include "error.h"
 
+static int	ft_check_env(char **env)
+{
+	if (!env || !(env[0]))
+		return (FALSE);
+	if (ft_fpath(env, "PWD") == ft_tablen(env))
+		return (FALSE);
+	if (ft_fpath(env, "HOME") == ft_tablen(env))
+		return (FALSE);
+	return (TRUE);
+}
+
 static char	**ft_tabcpy(char **tab)
 {
 	char	**cpy;
 	int		n;
 
 	n = 0;
-	if (!tab)
+	if (ft_check_env(tab) == FALSE)
+	{
+		ft_error(ERROR_ENV);
 		return (NULL);
+	}
 	if ((cpy = malloc(sizeof(char *) * (ft_tablen(tab) + 1))) == NULL)
 	{
 		ft_error(ERROR_ALLOC);

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 10:54:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 10:29:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:23:44 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_exec_child(t_cmd *cmds, t_sys *sys)
 static int	ft_builtins(t_cmd *cmds, t_sys **sys)
 {
 	if (ft_strcmp(cmds->name, "echo") == 0)
-		ft_echo(cmds->argv);
+		ft_echo(cmds->argv, (*sys)->env);
 	else if ((ft_strcmp(cmds->name, "setenv") == 0) ||
 			(ft_strcmp(cmds->name, "export") == 0))
 		ft_setenv(cmds->argv[1], &((*sys)->env), FALSE);
@@ -42,6 +42,8 @@ static int	ft_builtins(t_cmd *cmds, t_sys **sys)
 		ft_chdir(&((*sys)->env), cmds->argv[1]);
 	else if (ft_strcmp(cmds->name, "alias") == 0)
 		ft_alias(cmds, &((*sys)->alias));
+	else if (ft_strcmp(cmds->name, "unalias") == 0)
+		ft_unalias(cmds, &((*sys)->alias));
 	else
 		return (FALSE);
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:53:39 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/06 16:08:20 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:21:41 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "shell.h"
 #include "error.h"
 
-char		*ft_cvar(char *name, char *value)
+static char	*ft_cvar(char *name, char *value)
 {
 	char	*tmp;
 	char	*var;
@@ -30,28 +30,58 @@ char		*ft_cvar(char *name, char *value)
 	return (var);
 }
 
-char		*ft_joinpath(char *src, char *str)
+char		*ft_path_join(char *src, char *str)
 {
 	char	*tmp;
+	char	*path;
 
-	tmp = ft_strjoin(src, str);
-	free(src);
-	return (tmp);
+	tmp = ft_strjoin(src, "/");
+	path = ft_strjoin(tmp, str);
+	free(tmp);
+	return (path);
 }
 
-void		ft_init_changedir(char **pwd, char **tab, char ***env)
+int			ft_set_pwd(char ***env, char *str)
 {
-	size_t	n;
+	char	**pwd;
+
+	if ((pwd = ft_strsplit((*env)[ft_fpath((*env), "PWD")], '=')) == NULL)
+	{
+		ft_error(ERROR_ALLOC);
+		return (FALSE);
+	}
+	ft_setenv(ft_cvar("OLDPWD", pwd[1]), &(*env), TRUE);
+	ft_setenv(ft_cvar("PWD", str), &(*env), TRUE);
+	ft_free_tab(pwd);
+	return (TRUE);
+}
+
+size_t		ft_fpath(char **env, char *str)
+{
+	size_t		n;
 
 	n = 0;
-	while (tab[n])
-		if ((ft_changedir(pwd[0], pwd[1], tab[n++], &(*env))) == -1)
-		{
-			ft_free_tab(tab);
-			ft_free_tab(pwd);
-			ft_error(ERROR_ALLOC);
-			return ;
-		}
+	while (env[n])
+		if (ft_strncmp(env[n++], str, ft_strlen(str) - 1) == 0)
+			return (n - 1);
+	return (n);
+}
+
+char		*ft_getenv(char **env, char *name)
+{
+	char	**tab;
+	char	*str;
+
+	if (ft_fpath(env, name) == ft_tablen(env))
+		return (NULL);
+	if ((tab = ft_strsplit(env[ft_fpath(env, name)], '=')) == NULL)
+	{
+		ft_error(ERROR_ALLOC);
+		return (NULL);
+	}
+	if (!tab[0] || !tab[1])
+		return (NULL);
+	str = ft_strdup(tab[1]);
 	ft_free_tab(tab);
-	ft_free_tab(pwd);
+	return (str);
 }

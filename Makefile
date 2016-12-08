@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/12/07 18:27:48 by jcarra           ###   ########.fr        #
+#    Updated: 2016/12/08 10:34:30 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
 SRC			=	ft_delchar.c \
+				ft_unalias.c \
 				ft_alias.c \
 				ft_history.c \
 				ft_prompt_path.c \
@@ -29,6 +30,7 @@ SRC			=	ft_delchar.c \
 				ft_gestion_error.c \
 				ft_error.c \
 				ft_free.c \
+				ft_parsing_tools.c \
 				ft_parsing.c \
 				ft_shell.c \
 				ft_main.c

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 09:09:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/07 12:45:52 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 09:37:19 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int				ft_alias(t_cmd *cmd, t_alias **alias)
 			return (FALSE);
 	}
 	else
+	{
+		ft_unalias(cmd, &(*alias));
 		if (ft_alias_add(cmd, &(*alias)) == FALSE)
 			return (FALSE);
+	}
 	return (TRUE);
 }
