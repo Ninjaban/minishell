@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 09:20:20 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 09:39:24 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:35:17 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void	ft_alias_remove_if(t_alias **alias, char *name)
 		}
 }
 
-int			ft_unalias(t_cmd *cmd, t_alias **alias){
+int			ft_unalias(t_cmd *cmd, t_alias **alias)
+{
 	size_t	n;
 
 	if (cmd->argv[0] && cmd->argv[1])
@@ -77,7 +78,7 @@ int			ft_unalias(t_cmd *cmd, t_alias **alias){
 			ft_alias_remove(&(*alias));
 		else
 			while (cmd->argv[++n])
-			ft_alias_remove_if(&(*alias), cmd->argv[n]);
+				ft_alias_remove_if(&(*alias), cmd->argv[n]);
 	}
 	return (TRUE);
 }

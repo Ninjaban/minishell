@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:25:37 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:46:32 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,20 @@ static int	ft_launcher(t_sys **sys, char **str)
 	return (FALSE);
 }
 
-static int	ft_shrc_init(t_sys **sys)
+static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 {
-	char	*str;
 	char	*tmp;
-	int		fd;
 
-	str = NULL;
 	(*sys)->alias = NULL;
-	if ((fd = open(ft_strjoin(ft_getenv((*sys)->env, "HOME"), "/.42shrc"), O_RDONLY)) == -1)
+	if ((fd = open(ft_strjoin(ft_getenv((*sys)->env, "HOME"), "/.42shrc"),
+					O_RDONLY)) == -1)
 		return (FALSE);
 	while (get_next_line(fd, &str) == 1)
 	{
 		if ((ft_history_maj(&((*sys)->history), str, (*sys)->env)) == FALSE)
 			ft_error(ERROR_ALLOC);
 		else if (((*sys)->cmds = ft_parsing(str, *sys)) == NULL)
-				ft_error(ERROR_ALLOC);
+			ft_error(ERROR_ALLOC);
 		else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 			ft_error(tmp);
 		else if ((*sys)->cmds[0])
@@ -84,7 +82,7 @@ void		ft_shell(t_sys *sys, int exit)
 		ft_error(ERROR_READ);
 		return ;
 	}
-	if (ft_shrc_init(&sys) == FALSE)
+	if (ft_shrc_init(&sys, NULL, 0) == FALSE)
 		ft_error(ERROR_RC);
 	while (exit == FALSE)
 	{

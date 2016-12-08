@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:25:46 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:30:33 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static char	**ft_tabcpy(char **tab)
 
 	n = 0;
 	if (ft_check_env(tab) == FALSE)
-	{
-		ft_error(ERROR_ENV);
 		return (NULL);
-	}
 	if ((cpy = malloc(sizeof(char *) * (ft_tablen(tab) + 1))) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
@@ -71,7 +68,10 @@ int			main(int ac, char **av, char **env)
 	if ((sys = malloc(sizeof(t_sys))) == NULL)
 		return (1);
 	if ((sys->env = ft_tabcpy(env)) == NULL)
+	{
+		ft_error(ERROR_ENV);
 		return (1);
+	}
 	if (signal(SIGINT, sig_handler) == SIG_ERR)
 		return (1);
 	ft_shell(sys, FALSE);

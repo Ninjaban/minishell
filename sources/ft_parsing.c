@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 14:55:29 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/08 15:34:36 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_cmd	*ft_parsecmd(char *str)
 
 	if ((str = ft_parse_parenthesis(ft_strdup(str), ' ', '\a')) == NULL)
 		return (NULL);
-	if ((tab = ft_strsplit(str, ' ')) == NULL)
+	if ((tab = ft_strsplit(str, ' ')) == NULL || !tab[0])
 		return (NULL);
 	if ((cmd = malloc(sizeof(t_cmd))) == NULL)
 	{
@@ -86,8 +86,6 @@ static t_cmd	*ft_parsecmd(char *str)
 	cmd->name = NULL;
 	cmd->argv = NULL;
 	ft_parenthesis_undo(&tab);
-	if (!tab[0])
-		return (cmd);
 	if ((cmd->name = ft_strdup(tab[0])) == NULL)
 	{
 		ft_free_tab(tab);
