@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:34:36 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/09 14:01:23 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,16 @@ static t_cmd	*ft_parsecmd(char *str)
 	return (cmd);
 }
 
-t_cmd			**ft_parsing(char *str, t_sys *sys)
+t_cmd			**ft_parsing(char *str, t_sys *sys, int n)
 {
 	t_cmd		**cmds;
 	char		**tab;
 	char		*tmp;
-	int			n;
 
-	n = 0;
 	if (!str)
 		return (NULL);
 	tmp = ft_tild(str, sys->env);
+	ft_tild_file(&str, '\a', '~');
 	if ((tab = ft_strsplit((tmp == NULL) ? str : tmp, ';')) == NULL)
 		return (NULL);
 	free(tmp);

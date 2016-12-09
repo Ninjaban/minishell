@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:21:59 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/09 12:45:35 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int			ft_chdir(char ***env, char *str)
 {
 	char		**tab;
 
+	if (ft_strcmp(str, ".") == 0)
+		return (TRUE);
 	if (ft_fpath(*env, "PWD") == ft_tablen(*env))
 	{
 		ft_error(ERROR_ENV);

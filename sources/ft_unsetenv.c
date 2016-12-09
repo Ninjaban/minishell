@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 10:20:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:36:18 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/09 13:14:49 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,27 @@ static void		ft_del_line(char ***env, size_t i)
 	ft_putendl("L'environement a été modifiée.");
 }
 
+static void		ft_init_pwd(char ***env)
+{
+	char		*path;
+	char		*tmp;
+
+	if ((tmp = ft_getenv((*env), "HOME")) == NULL)
+		return ;
+	path = ft_strjoin("PWD=", tmp);
+	free(tmp);
+	if (path)
+		ft_setenv(path, &(*env), TRUE);
+}
+
 void			ft_unsetenv(char ***env, char *str)
 {
 	size_t		n;
 
 	if ((n = ft_find_path(*env, str)) == ft_tablen(*env))
 		ft_putendl("Variable non trouvé.");
-	else
+	else if (ft_strcmp(str, "PWD") == 0)
+		ft_init_pwd(&(*env));
+	else if (ft_strcmp(str, "HOME") != 0)
 		ft_del_line(&(*env), n);
 }

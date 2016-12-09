@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:46:32 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/09 13:33:53 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_launcher(t_sys **sys, char **str)
 		ft_error(ERROR_READ);
 	else if ((ft_history_maj(&((*sys)->history), *str, (*sys)->env)) == FALSE)
 		ft_error(ERROR_ALLOC);
-	else if (((*sys)->cmds = ft_parsing(*str, *sys)) == NULL)
+	else if (((*sys)->cmds = ft_parsing(*str, *sys, 0)) == NULL)
 		ft_error(ERROR_ALLOC);
 	else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 		ft_error(tmp);
@@ -55,7 +55,7 @@ static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 	{
 		if ((ft_history_maj(&((*sys)->history), str, (*sys)->env)) == FALSE)
 			ft_error(ERROR_ALLOC);
-		else if (((*sys)->cmds = ft_parsing(str, *sys)) == NULL)
+		else if (((*sys)->cmds = ft_parsing(str, *sys, 0)) == NULL)
 			ft_error(ERROR_ALLOC);
 		else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 			ft_error(tmp);

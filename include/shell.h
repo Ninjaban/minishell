@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 15:44:24 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/09 13:34:06 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void			ft_affprompt(size_t nbcmd, char **env);
 void			ft_prompt_path(char **t, char b);
 void			ft_init_changedir(char **pwd, char **t, char ***env);
 void			ft_alias_remove(t_alias **alias);
+void			ft_tild_file(char **str, char c, char r);
 void			*ft_gestion_error(t_cmd **cmds);
 void			*ft_exec(t_sys **sys);
 int				ft_access_dir(char *path);
@@ -91,7 +92,7 @@ char			*ft_path_join(char *src, char *str);
 char			*ft_tild(char *str, char **env);
 char			**ft_history_init(char **env);
 char			**ft_getpath(char **env);
-t_cmd			**ft_parsing(char *str, t_sys *sys);
+t_cmd			**ft_parsing(char *str, t_sys *sys, int n);
 size_t			ft_fpath(char **env, char *str);
 
 /*
