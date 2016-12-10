@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/09 13:33:53 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/10 12:01:43 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 #include "shell.h"
 #include "error.h"
 
-static void	ft_free(t_cmd **cmds, char *str)
+static void	ft_free(t_cmd ***cmds, char **str)
 {
-	if (str)
-		free(str);
-	if (cmds)
-		ft_free_cmds(cmds);
+	if (str && *str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	if (cmds && *cmds)
+	{
+		ft_free_cmds(*cmds);
+		*cmds = NULL;
+	}
 }
 
 static int	ft_launcher(t_sys **sys, char **str)
@@ -46,11 +52,15 @@ static int	ft_launcher(t_sys **sys, char **str)
 static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 {
 	char	*tmp;
+	char	*path;
 
 	(*sys)->alias = NULL;
-	if ((fd = open(ft_strjoin(ft_getenv((*sys)->env, "HOME"), "/.42shrc"),
-					O_RDONLY)) == -1)
+	tmp = ft_getenv((*sys)->env, "HOME");
+	path = ft_strjoin(tmp, "/.42shrc");
+	free(tmp);
+	if ((fd = open(path, O_RDONLY)) == -1)
 		return (FALSE);
+	free(path);
 	while (get_next_line(fd, &str) == 1)
 	{
 		if ((ft_history_maj(&((*sys)->history), str, (*sys)->env)) == FALSE)
@@ -67,8 +77,9 @@ static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 			else if (ft_strcmp((*sys)->cmds[0]->name, "alias") == 0)
 				ft_alias((*sys)->cmds[0], &((*sys)->alias));
 		}
-		ft_free((*sys)->cmds, str);
+		ft_free(&((*sys)->cmds), &str);
 	}
+	ft_free(&((*sys)->cmds), &str);
 	return (TRUE);
 }
 
@@ -94,9 +105,6 @@ void		ft_shell(t_sys *sys, int exit)
 				else
 					exit = TRUE;
 			}
-		ft_free(sys->cmds, str);
+		ft_free(&(sys->cmds), &str);
 	}
-	ft_alias_remove(&(sys->alias));
-	ft_free_tab(sys->history);
-	ft_free_tab(sys->env);
 }

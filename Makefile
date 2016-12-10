@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/12/08 10:34:30 by jcarra           ###   ########.fr        #
+#    Updated: 2016/12/10 10:57:29 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_delchar.c \
+SRC			=	ft_sys.c \
+				ft_delchar.c \
 				ft_unalias.c \
 				ft_alias.c \
 				ft_history.c \

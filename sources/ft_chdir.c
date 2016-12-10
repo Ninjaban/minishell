@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/09 12:45:35 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/10 12:16:25 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	ft_chdir_path(char *path, char ***env)
 		free(path);
 		return (TRUE);
 	}
+	free(path);
 	return (FALSE);
 }
 
@@ -49,17 +50,18 @@ static int	ft_set_path(char **path, char *str)
 
 static int	ft_init_chdir_path(char **tab, char ***env)
 {
-	size_t	n;
+	int		n;
 	char	**path;
 
-	n = 0;
+	n = -1;
 	if ((path = ft_strsplit((*env)[ft_fpath((*env), "PWD")], '=')) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
 	}
-	while (tab[n])
-		if (ft_set_path(&(path[1]), tab[n++]) == FALSE)
+	while (tab[++n])
+		if ((ft_strcmp(tab[n], ".") != 0) &&
+			(ft_set_path(&(path[1]), tab[n]) == FALSE))
 		{
 			ft_error(ERROR_ALLOC);
 			return (FALSE);
@@ -97,8 +99,6 @@ int			ft_chdir(char ***env, char *str)
 {
 	char		**tab;
 
-	if (ft_strcmp(str, ".") == 0)
-		return (TRUE);
 	if (ft_fpath(*env, "PWD") == ft_tablen(*env))
 	{
 		ft_error(ERROR_ENV);

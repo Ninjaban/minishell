@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/09 10:02:37 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/10 10:56:17 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int			main(int ac, char **av, char **env)
 {
 	t_sys	*sys;
 
-	if ((sys = malloc(sizeof(t_sys))) == NULL)
+	(void)ac;
+	(void)av;
+	if (ft_sys_init(&sys) == 1)
 		return (1);
 	if ((sys->env = ft_tabcpy(env)) == NULL)
 	{
@@ -75,7 +77,6 @@ int			main(int ac, char **av, char **env)
 	if (signal(SIGINT, sig_handler) == SIG_ERR)
 		return (1);
 	ft_shell(sys, FALSE);
-	if (ac && av && env)
-		return (0);
+	ft_sys_free(sys);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 10:33:28 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/09 16:48:15 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/10 12:06:20 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char			*ft_check_alias(char *str, t_alias *alias)
 		}
 		tmp = tmp->next;
 	}
-	return (str);
+	return (ft_strdup(str));
 }
 
 void			ft_tild_file(char **str, char c, char r)
@@ -66,7 +66,7 @@ void			ft_tild_file(char **str, char c, char r)
 	}
 }
 
-char			*ft_tild(char *str, char **env)
+char			*ft_tild(char *str, char **env, char *genv)
 {
 	size_t		n;
 	char		**tab;
@@ -74,13 +74,20 @@ char			*ft_tild(char *str, char **env)
 	char		*new;
 
 	ft_tild_file(&str, '~', '\a');
-	if ((tab = ft_strsplit(str, '~')) == NULL || !tab[0])
+	if ((tab = ft_strsplit(str, '~')) == NULL)
 		return (NULL);
+	if (!tab[0])
+	{
+		free(tab);
+		return (NULL);
+	}
 	n = 0;
 	new = ft_strdup(tab[0]);
 	while (tab[++n])
 	{
-		tmp = ft_strjoin(new, ft_getenv(env, "HOME"));
+		genv = ft_getenv(env, "HOME");
+		tmp = ft_strjoin(new, genv);
+		free(genv);
 		free(new);
 		new = ft_strjoin(tmp, tab[n]);
 		free(tmp);
