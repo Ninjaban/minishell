@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:09:16 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/04 14:14:44 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 08:51:39 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char		*ft_strchr(const char *s, int c)
 	int		n;
 
 	n = 0;
+	if (!s)
+		return (NULL);
 	while (s[n] && s[n] != c)
 		n = n + 1;
 	if (s[n] == c)

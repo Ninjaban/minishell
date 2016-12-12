@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 18:54:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 13:19:34 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 08:34:29 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char			*ft_access(char *name, char **env)
 	}
 	if ((path = ft_getpath(env)) == NULL)
 	{
-		ft_error(ERROR_ALLOC);
+		ft_error(ERROR_ENV);
 		return (NULL);
 	}
 	tmp = ft_trypath(name, path);

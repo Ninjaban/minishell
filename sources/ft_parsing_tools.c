@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 10:33:28 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/10 12:06:20 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 09:31:28 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ char			*ft_tild(char *str, char **env, char *genv)
 	new = tmp;
 	ft_free_tab(tab);
 	ft_tild_file(&new, '\a', '~');
+	free(str);
 	return (new);
 }

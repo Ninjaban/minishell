@@ -6,13 +6,14 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 09:04:55 by jcarra            #+#    #+#              #
-#    Updated: 2016/12/10 10:57:29 by jcarra           ###   ########.fr        #
+#    Updated: 2016/12/12 09:28:55 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	minishell
 
-SRC			=	ft_sys.c \
+SRC			=	ft_varenv.c \
+				ft_sys.c \
 				ft_delchar.c \
 				ft_unalias.c \
 				ft_alias.c \

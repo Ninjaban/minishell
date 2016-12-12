@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:44:38 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/10 11:22:11 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 09:30:38 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char			*ft_check_alias(char *str, t_alias *alias);
 char			*ft_getenv(char **env, char *name);
 char			*ft_path_join(char *src, char *str);
 char			*ft_tild(char *str, char **env, char *genv);
+char			*ft_varenv(char *str, char **env);
 char			**ft_history_init(char **env);
 char			**ft_getpath(char **env);
 t_cmd			**ft_parsing(char *str, t_sys *sys, int n);
