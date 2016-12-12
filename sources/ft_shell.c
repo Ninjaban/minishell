@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:39:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/10 12:01:43 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 14:19:10 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ static int	ft_launcher(t_sys **sys, char **str)
 	return (FALSE);
 }
 
+static void	ft_shrc_launch(t_sys **sys)
+{
+	if ((ft_strcmp((*sys)->cmds[0]->name, "setenv") == 0) ||
+		(ft_strcmp((*sys)->cmds[0]->name, "export") == 0))
+		ft_setenv((*sys)->cmds[0]->argv[1], &((*sys)->env), FALSE);
+	else if (ft_strcmp((*sys)->cmds[0]->name, "alias") == 0)
+		ft_alias((*sys)->cmds[0], &((*sys)->alias));
+}
+
 static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 {
 	char	*tmp;
@@ -70,13 +79,7 @@ static int	ft_shrc_init(t_sys **sys, char *str, int fd)
 		else if ((tmp = ft_gestion_error((*sys)->cmds)) != NULL)
 			ft_error(tmp);
 		else if ((*sys)->cmds[0])
-		{
-			if ((ft_strcmp((*sys)->cmds[0]->name, "setenv") == 0) ||
-				(ft_strcmp((*sys)->cmds[0]->name, "export") == 0))
-				ft_setenv((*sys)->cmds[0]->argv[1], &((*sys)->env), FALSE);
-			else if (ft_strcmp((*sys)->cmds[0]->name, "alias") == 0)
-				ft_alias((*sys)->cmds[0], &((*sys)->alias));
-		}
+			ft_shrc_launch(&(*sys));
 		ft_free(&((*sys)->cmds), &str);
 	}
 	ft_free(&((*sys)->cmds), &str);

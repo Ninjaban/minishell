@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 10:33:28 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 09:31:28 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 14:14:29 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,29 @@ void			ft_tild_file(char **str, char c, char r)
 	}
 }
 
-char			*ft_tild(char *str, char **env, char *genv)
+static char		*ft_tild_new(char **tab, char **env)
 {
 	size_t		n;
+	char		*genv;
+	char		*new;
+	char		*tmp;
+
+	n = 0;
+	new = ft_strdup(tab[0]);
+	while (tab[++n])
+	{
+		genv = ft_getenv(env, "HOME");
+		tmp = ft_strjoin(new, genv);
+		free(genv);
+		free(new);
+		new = ft_strjoin(tmp, tab[n]);
+		free(tmp);
+	}
+	return (new);
+}
+
+char			*ft_tild(char *str, char **env)
+{
 	char		**tab;
 	char		*tmp;
 	char		*new;
@@ -81,17 +101,7 @@ char			*ft_tild(char *str, char **env, char *genv)
 		free(tab);
 		return (NULL);
 	}
-	n = 0;
-	new = ft_strdup(tab[0]);
-	while (tab[++n])
-	{
-		genv = ft_getenv(env, "HOME");
-		tmp = ft_strjoin(new, genv);
-		free(genv);
-		free(new);
-		new = ft_strjoin(tmp, tab[n]);
-		free(tmp);
-	}
+	new = ft_tild_new(tab, env);
 	tmp = (str[ft_strlen(str) - 1] == '~') ?
 		ft_strjoin(new, ft_getenv(env, "HOME")) : ft_strdup(new);
 	free(new);

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 09:35:04 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 14:15:17 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_cmd			**ft_parsing(char *str, t_sys *sys, int n)
 
 	if (!str)
 		return (NULL);
-	tmp = ft_tild(ft_varenv(str, sys->env), sys->env, NULL);
+	tmp = ft_tild(ft_varenv(str, sys->env), sys->env);
 	ft_tild_file(&str, '\a', '~');
 	if ((tab = ft_strsplit((tmp == NULL) ? str : tmp, ';')) == NULL)
 		return (NULL);
