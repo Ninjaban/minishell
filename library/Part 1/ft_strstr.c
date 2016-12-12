@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:36:29 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/04 15:28:56 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/12 15:13:48 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char		*ft_strstr(const char *str, const char *src)
 	int		n;
 
 	n = 0;
+	if (!str || !src)
+		return (NULL);
 	if (!src[0])
 		return ((char *)str);
 	while (str[n])

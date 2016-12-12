@@ -6,31 +6,19 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 13:41:38 by jcarra            #+#    #+#              #
-#    Updated: 2016/12/10 09:48:27 by jcarra           ###   ########.fr        #
+#    Updated: 2016/12/12 15:22:03 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME			=	libft.a
 
-SRC_PART1		=	ft_bzero.c \
-					ft_memccpy.c \
-					ft_memchr.c \
-					ft_memcpy.c \
-					ft_memmove.c \
-					ft_memset.c \
-					ft_strcmp.c \
+SRC_PART1		=	ft_strcmp.c \
 					ft_strncmp.c \
-					ft_memcmp.c \
 					ft_strchr.c \
 					ft_strrchr.c \
 					ft_strlen.c \
 					ft_strdup.c \
-					ft_strcat.c \
-					ft_strncat.c \
-					ft_strlcat.c \
-					ft_strcpy.c \
 					ft_atoi.c \
-					ft_strncpy.c \
 					ft_strstr.c \
 					ft_strnstr.c \
 					ft_tolower.c \
