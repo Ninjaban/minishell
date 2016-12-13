@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 13:14:08 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/10 12:16:25 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:10:12 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	ft_init_chdir_path(char **tab, char ***env)
 	char	**path;
 
 	n = -1;
-	if ((path = ft_strsplit((*env)[ft_fpath((*env), "PWD")], '=')) == NULL)
+	if ((path = ft_strsplit((*env)[ft_fpath((*env), "PWD")], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
@@ -80,7 +80,7 @@ static int	ft_old(char ***env)
 		ft_error(ERROR_ENV);
 		return (FALSE);
 	}
-	if ((old = ft_strsplit((*env)[ft_fpath((*env), "OLDPWD")], '=')) == NULL)
+	if ((old = ft_strsplit((*env)[ft_fpath((*env), "OLDPWD")], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
@@ -110,7 +110,7 @@ int			ft_chdir(char ***env, char *str)
 		return (ft_old(&(*env)));
 	if (str[0] == '/')
 		return (ft_chdir_path(ft_strdup(str), &(*env)));
-	if ((tab = ft_strsplit(str, '/')) == NULL)
+	if ((tab = ft_strsplit(str, "/")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 09:04:01 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/06 15:26:25 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:10:31 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		ft_path(char **str, char **env)
 			n = ft_find_path(env, "PWD");
 			if (!env[n])
 				return (-1);
-			tab = ft_strsplit(env[n], '=');
+			tab = ft_strsplit(env[n], "=");
 			if (!tab)
 				return (-1);
 			ft_prompt_path(tab, bool);

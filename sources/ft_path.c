@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 18:40:13 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/17 19:43:43 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:08:48 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char		**ft_getpath(char **env)
 			while (env[n][i] != '=')
 				env[n][i++] = ':';
 			env[n][i] = ':';
-			tab = ft_strsplit(env[n], ':');
+			tab = ft_strsplit(env[n], ":");
 			ft_verifpath(&tab);
 			return (tab);
 		}

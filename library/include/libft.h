@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 13:23:35 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 15:21:13 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:06:01 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strtrim(char const *s);
 char				*ft_itoa(int n);
 char				*ft_revstr(char *str);
-char				**ft_strsplit(char const *s, char c);
+char				**ft_strsplit(char const *s, char const *c);
 char				*ft_revstr(char *str);
 size_t				ft_tablen(char **tab);
 unsigned long int	ft_revnbr(unsigned long int nbr);

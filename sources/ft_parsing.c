@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 09:13:56 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 14:15:17 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:07:09 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,13 @@ static void		ft_parenthesis_undo(char ***tab)
 	}
 }
 
-static t_cmd	*ft_parsecmd(char *str, char *tmp)
+static t_cmd	*ft_parsecmd(char *str, char *tmp, char **tab)
 {
 	t_cmd		*cmd;
-	char		**tab;
 
 	if ((tmp = ft_parse_parenthesis(ft_strdup(str), ' ', '\a')) == NULL)
 		return (NULL);
-	if ((tab = ft_strsplit(tmp, ' ')) == NULL || !tab[0])
+	if ((tab = ft_strsplit(tmp, " \t\n")) == NULL || !tab[0])
 		return (NULL);
 	free(tmp);
 	if ((cmd = malloc(sizeof(t_cmd))) == NULL)
@@ -111,7 +110,7 @@ t_cmd			**ft_parsing(char *str, t_sys *sys, int n)
 		return (NULL);
 	tmp = ft_tild(ft_varenv(str, sys->env), sys->env);
 	ft_tild_file(&str, '\a', '~');
-	if ((tab = ft_strsplit((tmp == NULL) ? str : tmp, ';')) == NULL)
+	if ((tab = ft_strsplit((tmp == NULL) ? str : tmp, ";")) == NULL)
 		return (NULL);
 	free(tmp);
 	if ((cmds = malloc(sizeof(t_cmd) * (ft_tablen(tab) + 1))) == NULL)
@@ -120,8 +119,8 @@ t_cmd			**ft_parsing(char *str, t_sys *sys, int n)
 		cmds[n++] = NULL;
 	n = -1;
 	while (tab[++n])
-		if ((cmds[n] = ft_parsecmd(ft_check_alias(tab[n], sys->alias), NULL))
-			== NULL)
+		if ((cmds[n] = ft_parsecmd(ft_check_alias(tab[n], sys->alias), NULL,
+									NULL)) == NULL)
 		{
 			ft_free_cmds(cmds);
 			return (NULL);

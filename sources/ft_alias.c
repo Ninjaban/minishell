@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 09:09:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/08 09:37:19 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:11:29 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		ft_alias_init(t_cmd *cmd, t_alias **alias)
 {
 	char	**tab;
 
-	if ((tab = ft_strsplit(cmd->argv[1], '=')) == NULL)
+	if ((tab = ft_strsplit(cmd->argv[1], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
@@ -56,7 +56,7 @@ static int		ft_alias_add(t_cmd *cmd, t_alias **alias)
 	t_alias	*tmp;
 	char	**tab;
 
-	if ((tab = ft_strsplit(cmd->argv[1], '=')) == NULL)
+	if ((tab = ft_strsplit(cmd->argv[1], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 10:33:28 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 14:14:29 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:07:37 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char			*ft_tild(char *str, char **env)
 	char		*new;
 
 	ft_tild_file(&str, '~', '\a');
-	if ((tab = ft_strsplit(str, '~')) == NULL)
+	if ((tab = ft_strsplit(str, "~")) == NULL)
 		return (NULL);
 	if (!tab[0])
 	{

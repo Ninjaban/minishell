@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 22:06:46 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 19:01:15 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:09:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			ft_setenv(char *str, char ***env, int bool)
 	char	**tab;
 	size_t	n;
 
-	if ((tab = ft_strsplit(str, '=')) == NULL)
+	if ((tab = ft_strsplit(str, "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return ;

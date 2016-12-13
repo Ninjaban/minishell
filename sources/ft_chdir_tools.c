@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:53:39 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/12 08:39:28 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/13 10:09:52 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_set_pwd(char ***env, char *str)
 {
 	char	**pwd;
 
-	if ((pwd = ft_strsplit((*env)[ft_fpath((*env), "PWD")], '=')) == NULL)
+	if ((pwd = ft_strsplit((*env)[ft_fpath((*env), "PWD")], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
@@ -74,7 +74,7 @@ char		*ft_getenv(char **env, char *name)
 
 	if (ft_fpath(env, name) == ft_tablen(env))
 		return (NULL);
-	if ((tab = ft_strsplit(env[ft_fpath(env, name)], '=')) == NULL)
+	if ((tab = ft_strsplit(env[ft_fpath(env, name)], "=")) == NULL)
 	{
 		ft_error(ERROR_ALLOC);
 		return (NULL);
