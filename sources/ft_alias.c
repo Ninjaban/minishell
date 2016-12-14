@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 09:09:52 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/13 10:11:29 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/14 09:05:23 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static int		ft_alias_add(t_cmd *cmd, t_alias **alias)
 		ft_error(ERROR_ALLOC);
 		return (FALSE);
 	}
-	if (!tab[0])
+	if (!tab[0] || !tab[1])
 	{
 		free(tab);
-		ft_error(ERROR_ALLOC);
+		ft_error(ERROR_SYNTAX);
 		return (FALSE);
 	}
 	tmp = *alias;
@@ -101,6 +101,11 @@ int				ft_alias(t_cmd *cmd, t_alias **alias)
 		return (FALSE);
 	if (!cmd->argv[1])
 		ft_alias_aff(*alias);
+	else if	(cmd->argv[2])
+	{
+		ft_error(ERROR_SYNTAX);
+		return (FALSE);
+	}
 	else if (!(*alias))
 	{
 		if (ft_alias_init(cmd, &(*alias)) == FALSE)

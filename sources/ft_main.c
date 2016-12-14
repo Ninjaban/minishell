@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:29:30 by jcarra            #+#    #+#             */
-/*   Updated: 2016/12/13 17:05:22 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/12/14 12:32:57 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,9 @@ void		sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		signal(SIGINT, SIG_IGN);
-		ft_putstr("\n");
-		ft_affprompt(0, NULL);
-		signal(SIGINT, SIG_DFL);
+//		signal(SIGINT, SIG_IGN);
+//		ft_putstr("\n\033[34;1;4m$: commande nº#\033[0m - (\033[31m...\033[0m) => ");
+		write(0, "ls -la", 6);
 	}
 }
 
